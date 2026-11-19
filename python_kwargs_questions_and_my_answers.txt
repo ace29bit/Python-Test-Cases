@@ -1,0 +1,285 @@
+PYTHON PRACTICE: **kwargs
+Questions and My Answers
+
+============================================================
+LEVEL 1: BASIC
+============================================================
+
+1. Print all keyword arguments
+
+Question:
+Write a function that accepts any number of keyword arguments and prints the dictionary.
+
+My answer:
+def name(**a):
+    print(a)
+
+name(name='venkat', age=20, marks=100)
+
+
+2. Print only the values
+
+Question:
+Write a function that accepts keyword arguments and prints only the values using a for loop.
+
+My answer:
+def display(**a):
+    for i in a:
+        print(a[i])
+
+display(a=10, b=20, c=30)
+
+
+3. Print keys and values
+
+Question:
+Write a function that displays each key and its corresponding value.
+
+My answer:
+def student(**a):
+    for i in a:
+        print(i, a[i])
+
+student(name="Venkat", marks=90, age=20)
+
+
+4. Count keyword arguments
+
+Question:
+Write a function that counts how many keyword arguments are passed.
+
+My answer:
+def display(**a):
+    count = 0
+    for i in a:
+        count += 1
+    print("No of keyword arguments are passed: ", count)
+
+display(a=10, b=20, c=30, d=40)
+
+
+5. Sum all values
+
+Question:
+Write a function that calculates the sum of all numerical values passed through **kwargs.
+
+My answer:
+def calculate(**a):
+    total = 0
+    for i in a:
+        total += a[i]
+    print("Total ", total)
+
+calculate(a=10, b=20, c=30)
+
+
+============================================================
+LEVEL 2: INTERMEDIATE
+============================================================
+
+6. Find even and odd values
+
+Question:
+Write a function that checks whether each value is even or odd.
+
+My answer:
+def check(**a):
+    for i in a:
+        if a[i] % 2 == 0:
+            print(i, "Even")
+        else:
+            print(i, "Odd")
+
+check(a=10, b=15, c=22, d=31)
+
+
+7. Find the highest value
+
+Question:
+Write a function that finds the highest value among the keyword arguments.
+
+My answer:
+def highest(**a):
+    temp = 0
+    for i in a:
+        if a[i] >= temp:
+            temp = a[i]
+    print('Highest value ', temp)
+
+highest(math=85, science=95, python=100, english=75)
+
+Review note:
+This works for the given positive numbers, but initializing temp to 0 fails if all values are negative. Initialize temp with the first value, or use a None check.
+
+
+8. Find the lowest value
+
+Question:
+Write a function that finds the lowest value among the keyword arguments.
+
+My answer:
+def lowest(**a):
+    print(min(a.values()))
+
+lowest(a=45, b=20, c=65, d=10)
+
+Review note:
+This uses the built-in min() method. To solve without min(), initialize temp with the first value and compare the remaining values.
+
+
+9. Pass or Fail
+
+Question:
+Write a function that checks students' marks. Marks greater than or equal to 50 mean Pass; marks below 50 mean Fail.
+
+My answer:
+def result(**a):
+    for i in a:
+        if a[i] >= 50:
+            print(i, "Pass")
+        else:
+            print(i, "Fail")
+
+result(Venkat=85, Durga=35, Ravi=60)
+
+
+10. Store results in a new dictionary
+
+Question:
+Write a function that accepts student names and marks, then creates a new dictionary containing their results.
+
+My answer:
+def result(**a):
+    d = {}
+    for i in a:
+        if a[i] >= 50:
+            d[i] = 'Pass'
+        else:
+            d[i] = "Fail"
+    print(d)
+
+result(Venkat=85, Durga=35, Ravi=60)
+
+
+============================================================
+LEVEL 3: ADVANCED
+============================================================
+
+11. Separate positive and negative values
+
+Question:
+Write a function that separates positive and negative numbers into two different lists.
+
+My answer:
+def numbers(**a):
+    pos = []
+    neg = []
+    for i in a:
+        if a[i] >= 0:
+            pos.append(i)
+        else:
+            neg.append(i)
+    print('Poitive {}\nNegative {}'.format(pos, neg))
+
+numbers(a=10, b=-5, c=20, d=-15, e=0)
+
+Review note:
+The original code appends i, which is the dictionary key. To store the numbers, append a[i]. Zero is neither positive nor negative.
+
+
+12. Calculate average marks
+
+Question:
+Write a function that calculates the average of all student marks passed through **kwargs.
+
+My answer:
+def average(**a):
+    count = 0
+    for i in a:
+        count += 1
+    print("Average ", sum(a.values()) / count)
+
+average(Venkat=80, Durga=90, Ravi=70)
+
+
+13. Character frequency
+
+Question:
+Write a function that accepts keyword arguments containing characters and their frequencies, then prints the character with the highest frequency.
+
+My answer:
+def frequency(**a):
+    temp = max(a.values())
+    char = None
+    for i in a:
+        if a[i] < temp:
+            temp = a[i]
+            char = i
+    print(char)
+
+frequency(a=5, b=10, c=3, d=8)
+
+Review note:
+The comparison uses <, so it searches for a lower value. To find the highest frequency, use > and initialize temp using the first value (or an appropriate starting value).
+
+
+14. Dictionary unpacking
+
+Question:
+Create a dictionary containing student details. Pass that dictionary to a function using ** and print all the details.
+
+My answer:
+def details(**a):
+    print(a)
+
+student_data = {
+    'name': 'Venkat',
+    'age': 20,
+    'marks': 95
+}
+details(**student_data)
+
+
+15. Combine *args and **kwargs
+
+Question:
+Write a function that accepts both positional and keyword arguments.
+
+My answer:
+def student(*args, **kwargs):
+    print(args)
+    print(kwargs)
+    print(args, kwargs)
+
+student(10, 20, 30, name="Venkat", age=20)
+
+
+============================================================
+ADDITIONAL CONCEPTS DISCUSSED
+============================================================
+
+Finding the smallest value without using min():
+
+def lowest(**a):
+    temp = None
+
+    for i in a:
+        if temp is None:
+            temp = a[i]
+        elif a[i] < temp:
+            temp = a[i]
+
+    print("Lowest value:", temp)
+
+lowest(a=45, b=20, c=65, d=10)
+
+Why the None check is needed:
+Python cannot compare an integer with None. The first loop iteration assigns the first actual number to temp. Later iterations compare numbers with numbers.
+
+TypeError:
+A TypeError occurs when an operation is performed on an object of an unsuitable data type.
+Example:
+45 < None
+
+This raises:
+TypeError: '<' not supported between instances of 'int' and 'NoneType'
